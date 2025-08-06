@@ -1,0 +1,3 @@
+rootProject.name = 'EagletProjects'
+
+include("server-authorization", "server-business", "server-gateway")
