@@ -4,10 +4,14 @@ import { authSimpleCanActivate, authSimpleCanActivateChild } from '@delon/auth';
 
 import { LayoutBasicComponent } from '../layout';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LandingComponent } from './landing/landing.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
+  { path: 'landing', component: LandingComponent },
+  { path: 'passport', loadChildren: () => import('./passport/routes').then(m => m.routes) },
   {
-    path: '',
+    path: 'secure',
     component: LayoutBasicComponent,
     canActivate: [startPageGuard, authSimpleCanActivate],
     canActivateChild: [authSimpleCanActivateChild],
@@ -17,8 +21,6 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent }
     ]
   },
-  // passport
-  { path: '', loadChildren: () => import('./passport/routes').then(m => m.routes) },
   { path: 'exception', loadChildren: () => import('./exception/routes').then(m => m.routes) },
   { path: '**', redirectTo: 'exception/404' }
 ];
