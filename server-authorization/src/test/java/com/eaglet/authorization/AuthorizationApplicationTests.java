@@ -1,10 +1,10 @@
-package com.eaglet.server_authorization;
+package com.eaglet.authorization;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServerAuthorizationApplicationTests {
+class AuthorizationApplicationTests {
 
 	@Test
 	void contextLoads() {

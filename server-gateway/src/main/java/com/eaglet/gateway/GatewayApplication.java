@@ -1,13 +1,13 @@
-package com.eaglet.server_gateway;
+package com.eaglet.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServerGatewayApplication {
+public class GatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServerGatewayApplication.class, args);
+		SpringApplication.run(GatewayApplication.class, args);
 	}
 
 }

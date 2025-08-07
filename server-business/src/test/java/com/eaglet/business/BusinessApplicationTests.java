@@ -1,10 +1,10 @@
-package com.eaglet.server_gateway;
+package com.eaglet.business;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServerGatewayApplicationTests {
+class BusinessApplicationTests {
 
 	@Test
 	void contextLoads() {

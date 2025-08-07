@@ -1,13 +1,13 @@
-package com.eaglet.server_authorization;
+package com.eaglet.business;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServerAuthorizationApplication {
+public class BusinessApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServerAuthorizationApplication.class, args);
+		SpringApplication.run(BusinessApplication.class, args);
 	}
 
 }
