@@ -1,12 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, Injectable, Provider, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { ACLService } from '@delon/acl';
 import { DA_SERVICE_TOKEN } from '@delon/auth';
 import { ALAIN_I18N_TOKEN, MenuService, SettingsService, TitleService } from '@delon/theme';
-import { ACLService } from '@delon/acl';
-import { I18NService } from '../i18n/i18n.service';
-import { Observable, zip, of, catchError, map } from 'rxjs';
 import type { NzSafeAny } from 'ng-zorro-antd/core/types';
+import { Observable, zip, of, catchError, map } from 'rxjs';
+
+import { I18NService } from '../i18n/i18n.service';
 
 /**
  * Used for application startup
@@ -57,7 +58,6 @@ export class StartupService {
     this.titleService.suffix = res.app?.name;
   }
 
-  
   private viaHttp(): Observable<void> {
     const defaultLang = this.i18n.defaultLang;
     return zip(this.i18n.loadLangData(defaultLang), this.appData$).pipe(
@@ -69,20 +69,18 @@ export class StartupService {
       })
     );
   }
-  
 
-  
   private viaMockI18n(): Observable<void> {
     const defaultLang = this.i18n.defaultLang;
     return this.i18n.loadLangData(defaultLang).pipe(
-        map((langData: NzSafeAny) => {
-          this.i18n.use(defaultLang, langData);
+      map((langData: NzSafeAny) => {
+        this.i18n.use(defaultLang, langData);
 
-          this.viaMock();
-        })
-      );
+        this.viaMock();
+      })
+    );
   }
-  
+
   private viaMock(): Observable<void> {
     // const tokenData = this.tokenService.get();
     // if (!tokenData.token) {
