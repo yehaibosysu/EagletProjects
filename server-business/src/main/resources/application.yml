@@ -1,3 +1,20 @@
+server:
+  port: 8090
+
+logging:
+  level:
+    root: INFO
+    '[org.springframework.web]': INFO
+    '[org.springframework.security]': trace
+    '[org.springframework.security.oauth2]': trace
+  file:
+    name: D:\log\eaglet-business.log
+
 spring:
   application:
     name: server-business
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9000/oauth2/jwks

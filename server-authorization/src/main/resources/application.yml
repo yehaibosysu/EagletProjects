@@ -1,3 +1,28 @@
+server:
+  port: 9000
+
+logging:
+  level:
+    root: INFO
+    '[org.springframework.web]': INFO
+    '[org.springframework.security]': trace
+    '[org.springframework.security.oauth2]': trace
+  file:
+    name: D:\log\eaglet-authorization.log
+
 spring:
   application:
     name: server-authorization
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: your-app-client-id
+            client-secret: your-app-client-secret
+          github:
+            client-id: your-app-client-id
+            client-secret: your-app-client-secret
+          facebook:
+            client-id: your-app-client-id
+            client-secret: your-app-client-secret
