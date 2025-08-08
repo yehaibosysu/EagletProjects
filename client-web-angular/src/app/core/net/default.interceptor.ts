@@ -1,11 +1,9 @@
 import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpResponseBase } from '@angular/common/http';
 import { Injector, inject } from '@angular/core';
-import { IGNORE_BASE_URL } from '@delon/theme';
 import { environment } from '@env/environment';
 import { Observable, of, throwError, mergeMap } from 'rxjs';
 
 import { ReThrowHttpError, checkStatus, getAdditionalHeaders, toLogin } from './helper';
-import { tryRefreshToken } from './refresh-token';
 
 function handleData(injector: Injector, ev: HttpResponseBase, req: HttpRequest<any>, next: HttpHandlerFn): Observable<any> {
   checkStatus(injector, ev);
@@ -36,9 +34,6 @@ function handleData(injector: Injector, ev: HttpResponseBase, req: HttpRequest<a
       // }
       break;
     case 401:
-      if (environment.api.refreshTokenEnabled && environment.api.refreshTokenType === 're-request') {
-        return tryRefreshToken(injector, ev, req, next);
-      }
       toLogin(injector);
       break;
     case 403:
