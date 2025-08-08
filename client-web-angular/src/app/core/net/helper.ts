@@ -1,7 +1,6 @@
 import { HttpHeaders, HttpResponseBase } from '@angular/common/http';
 import { Injector, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { DA_SERVICE_TOKEN } from '@delon/auth';
 import { ALAIN_I18N_TOKEN } from '@delon/theme';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -30,11 +29,6 @@ export const CODEMESSAGE: Record<number, string> = {
 
 export function goTo(injector: Injector, url: string): void {
   setTimeout(() => injector.get(Router).navigateByUrl(url));
-}
-
-export function toLogin(injector: Injector): void {
-  injector.get(NzNotificationService).error(`未登录或登录已过期，请重新登录。`, ``);
-  goTo(injector, injector.get(DA_SERVICE_TOKEN).login_url!);
 }
 
 export function getAdditionalHeaders(headers?: HttpHeaders): Record<string, string> {

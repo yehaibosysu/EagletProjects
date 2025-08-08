@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DA_SERVICE_TOKEN } from '@delon/auth';
 import { I18nPipe, SettingsService, User } from '@delon/theme';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -16,7 +15,6 @@ import { NzInputModule } from 'ng-zorro-antd/input';
   imports: [ReactiveFormsModule, I18nPipe, NzAvatarModule, NzFormModule, NzGridModule, NzButtonModule, NzInputModule]
 })
 export class UserLockComponent {
-  private readonly tokenService = inject(DA_SERVICE_TOKEN);
   private readonly settings = inject(SettingsService);
   private readonly router = inject(Router);
 
@@ -34,9 +32,6 @@ export class UserLockComponent {
     if (this.f.valid) {
       console.log('Valid!');
       console.log(this.f.value);
-      this.tokenService.set({
-        token: '123'
-      });
       this.router.navigate(['dashboard']);
     }
   }

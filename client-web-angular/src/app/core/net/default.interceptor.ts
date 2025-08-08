@@ -3,7 +3,7 @@ import { Injector, inject } from '@angular/core';
 import { environment } from '@env/environment';
 import { Observable, of, throwError, mergeMap } from 'rxjs';
 
-import { ReThrowHttpError, checkStatus, getAdditionalHeaders, toLogin } from './helper';
+import { ReThrowHttpError, checkStatus, getAdditionalHeaders } from './helper';
 
 function handleData(injector: Injector, ev: HttpResponseBase, req: HttpRequest<any>, next: HttpHandlerFn): Observable<any> {
   checkStatus(injector, ev);
@@ -34,8 +34,6 @@ function handleData(injector: Injector, ev: HttpResponseBase, req: HttpRequest<a
       // }
       break;
     case 401:
-      toLogin(injector);
-      break;
     case 403:
     case 404:
     case 500:

@@ -2,7 +2,6 @@ import { HttpContext } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { ALLOW_ANONYMOUS } from '@delon/auth';
 import { I18nPipe, _HttpClient } from '@delon/theme';
 import { MatchControl } from '@delon/util/form';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
@@ -129,9 +128,7 @@ export class UserRegisterComponent implements OnDestroy {
     this.loading = true;
     this.cdr.detectChanges();
     this.http
-      .post('/register', data, null, {
-        context: new HttpContext().set(ALLOW_ANONYMOUS, true)
-      })
+      .post('/register', data, null)
       .pipe(
         finalize(() => {
           this.loading = false;

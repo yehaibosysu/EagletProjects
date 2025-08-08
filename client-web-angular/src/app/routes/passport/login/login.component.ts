@@ -1,12 +1,9 @@
-import { HttpContext } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { StartupService } from '@core';
 import { ReuseTabService } from '@delon/abc/reuse-tab';
-import { ALLOW_ANONYMOUS, DA_SERVICE_TOKEN, SocialOpenType, SocialService } from '@delon/auth';
 import { I18nPipe, SettingsService, _HttpClient } from '@delon/theme';
-import { environment } from '@env/environment';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -21,7 +18,7 @@ import { finalize } from 'rxjs';
   selector: 'passport-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.less'],
-  providers: [SocialService],
+  providers: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
@@ -40,9 +37,7 @@ import { finalize } from 'rxjs';
 export class UserLoginComponent implements OnDestroy {
   private readonly router = inject(Router);
   private readonly settingsService = inject(SettingsService);
-  private readonly socialService = inject(SocialService);
   private readonly reuseTabService = inject(ReuseTabService, { optional: true });
-  private readonly tokenService = inject(DA_SERVICE_TOKEN);
   private readonly startupSrv = inject(StartupService);
   private readonly http = inject(_HttpClient);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -115,10 +110,7 @@ export class UserLoginComponent implements OnDestroy {
           userName: this.form.value.userName,
           password: this.form.value.password
         },
-        null,
-        {
-          context: new HttpContext().set(ALLOW_ANONYMOUS, true)
-        }
+        null
       )
       .pipe(
         finalize(() => {
@@ -137,55 +129,15 @@ export class UserLoginComponent implements OnDestroy {
         // 设置用户Token信息
         // TODO: Mock expired value
         res.user.expired = +new Date() + 1000 * 60 * 5;
-        this.tokenService.set(res.user);
         // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
         this.startupSrv.load().subscribe(() => {
-          let url = this.tokenService.referrer!.url || '/';
-          if (url.includes('/passport')) {
-            url = '/';
-          }
+          let url = '/';
           this.router.navigateByUrl(url);
         });
       });
   }
 
-  open(type: string, openType: SocialOpenType = 'href'): void {
-    let url = ``;
-    let callback = ``;
-    if (environment.production) {
-      callback = `https://ng-alain.github.io/ng-alain/#/passport/callback/${type}`;
-    } else {
-      callback = `http://localhost:4200/#/passport/callback/${type}`;
-    }
-    switch (type) {
-      case 'auth0':
-        url = `//cipchk.auth0.com/login?client=8gcNydIDzGBYxzqV0Vm1CX_RXH-wsWo5&redirect_uri=${decodeURIComponent(callback)}`;
-        break;
-      case 'github':
-        url = `//github.com/login/oauth/authorize?client_id=9d6baae4b04a23fcafa2&response_type=code&redirect_uri=${decodeURIComponent(
-          callback
-        )}`;
-        break;
-      case 'weibo':
-        url = `https://api.weibo.com/oauth2/authorize?client_id=1239507802&response_type=code&redirect_uri=${decodeURIComponent(callback)}`;
-        break;
-    }
-    if (openType === 'window') {
-      this.socialService
-        .login(url, '/', {
-          type: 'window'
-        })
-        .subscribe(res => {
-          if (res) {
-            this.settingsService.setUser(res);
-            this.router.navigateByUrl('/');
-          }
-        });
-    } else {
-      this.socialService.login(url, '/', {
-        type: 'href'
-      });
-    }
+  open(type: string, openType: any = 'href'): void {
   }
 
   ngOnDestroy(): void {

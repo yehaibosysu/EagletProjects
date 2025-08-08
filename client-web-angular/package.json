@@ -35,7 +35,6 @@
     "zone.js": "~0.15.0",
     "@delon/abc": "^19.2.0",
     "@delon/acl": "^19.2.0",
-    "@delon/auth": "^19.2.0",
     "@delon/cache": "^19.2.0",
     "@delon/form": "^19.2.0",
     "@delon/mock": "^19.2.0",
