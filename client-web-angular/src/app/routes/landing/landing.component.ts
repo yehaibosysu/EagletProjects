@@ -25,7 +25,7 @@ export class LandingComponent implements OnInit {
 
   login(): void {
     // The Backend is configured to trigger login when unauthenticated
-    window.location.href = environment['backendBaseUrl'];
+    window.location.href = environment.api.baseUrl;
   }
 
   logout(): void {
@@ -58,7 +58,7 @@ export class LandingComponent implements OnInit {
   authorizeMessages(): void {
     // Trigger the Backend to perform the authorization_code grant flow.
     // After authorization is complete, the Backend will redirect back to this app.
-    window.location.href = environment['backendBaseUrl'] + "/oauth2/authorization/messaging-client-authorization-code";
+    window.location.href = environment.api.baseUrl + "/oauth2/authorization/messaging-client-authorization-code";
   }
 
   getMessages(): void {

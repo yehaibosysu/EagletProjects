@@ -8,9 +8,8 @@ export const environment = {
   production: false,
   useHash: false,
   api: {
-    baseUrl: './',
+    baseUrl: 'http://127.0.0.1:8080',
     refreshTokenEnabled: false,
     refreshTokenType: 'auth-refresh'
-  },
-  backendBaseUrl: 'http://127.0.0.1:8080'
+  }
 } as Environment;

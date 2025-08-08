@@ -64,11 +64,15 @@ function handleData(injector: Injector, ev: HttpResponseBase, req: HttpRequest<a
 export const defaultInterceptor: HttpInterceptorFn = (req, next) => {
   // 统一加上服务端前缀
   let url = req.url;
-  if (!req.context.get(IGNORE_BASE_URL) && !url.startsWith('https://') && !url.startsWith('http://')) {
+  if (!url.startsWith('./') && !url.startsWith('https://') && !url.startsWith('http://')) {
     const { baseUrl } = environment.api;
     url = baseUrl + (baseUrl.endsWith('/') && url.startsWith('/') ? url.substring(1) : url);
   }
-  const newReq = req.clone({ url, setHeaders: getAdditionalHeaders(req.headers) });
+  const newReq = req.clone({ 
+    url, 
+    setHeaders: getAdditionalHeaders(req.headers),
+    withCredentials: true   // This is required to ensure the Session Cookie is passed in every request to the Backend
+  });
   const injector = inject(Injector);
 
   return next(newReq).pipe(

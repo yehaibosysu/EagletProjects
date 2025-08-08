@@ -7,8 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LandingComponent } from './landing/landing.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
-  { path: 'landing', component: LandingComponent },
+  { path: '', component: LandingComponent },
   { path: 'passport', loadChildren: () => import('./passport/routes').then(m => m.routes) },
   {
     path: 'secure',

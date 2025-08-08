@@ -116,7 +116,8 @@
               "buildTarget": "my-project:build:production"
             },
             "development": {
-              "buildTarget": "my-project:build:development"
+              "buildTarget": "my-project:build:development",
+              "host": "127.0.0.1"
             }
           },
           "defaultConfiguration": "development",

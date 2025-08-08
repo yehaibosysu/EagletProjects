@@ -13,7 +13,6 @@ import {
 import { I18NService, defaultInterceptor, provideStartup } from '@core';
 import { provideCellWidgets } from '@delon/abc/cell';
 import { provideSTWidgets } from '@delon/abc/st';
-import { provideAuth } from '@delon/auth';
 import { provideSFConfig } from '@delon/form';
 import { AlainProvideLang, provideAlain, zh_CN as delonLang } from '@delon/theme';
 import { AlainConfig } from '@delon/util/config';
@@ -35,9 +34,7 @@ const defaultLang: AlainProvideLang = {
   delon: delonLang
 };
 
-const alainConfig: AlainConfig = {
-  auth: { login_url: '/passport/login' }
-};
+const alainConfig: AlainConfig = {};
 
 const ngZorroConfig: NzConfig = {};
 
@@ -49,7 +46,7 @@ const routerFeatures: RouterFeatures[] = [
 if (environment.useHash) routerFeatures.push(withHashLocation());
 
 const providers: Array<Provider | EnvironmentProviders> = [
-  provideHttpClient(withInterceptors([...(environment.interceptorFns ?? []), defaultInterceptor])),
+  provideHttpClient(withInterceptors([defaultInterceptor])),
   provideAnimations(),
   provideRouter(routes, ...routerFeatures),
   provideAlain({ config: alainConfig, defaultLang, i18nClass: I18NService, icons: [...ICONS_AUTO, ...ICONS] }),
