@@ -21,7 +21,7 @@ public class DefaultSecurityConfig {
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/assets/**", "/login").permitAll()
+                .requestMatchers("/assets/**", "/webjars/**", "/login").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(formLogin -> formLogin
